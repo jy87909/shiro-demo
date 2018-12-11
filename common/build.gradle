@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'com.lxy'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // mybatis plus
+    compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.0.3'
+
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
+
+    compile group: 'org.freemarker', name: 'freemarker', version: '2.3.23'
+
+}

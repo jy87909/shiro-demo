@@ -1,0 +1,33 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.1.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+
+dependencies {
+    compile project(":service")
+    compile project(":common")
+    compile project(":entity")
+    compile project(":dao")
+    compile project(":shiro")
+    compile project(":exception")
+
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-web
+    compile group: 'org.springframework', name: 'spring-web', version: '3.0.4.RELEASE'
+
+}

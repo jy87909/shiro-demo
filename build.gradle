@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+}
+
+group 'com.lxy'
+version '1.0-SNAPSHOT'
+
+allprojects {
+
+    repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    }
+
+    sourceCompatibility = 1.8
+
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src/main/java']
+            }
+            resources {
+                srcDirs = ["src/main/resources"]
+            }
+        }
+        test {
+            java {
+                srcDirs = ['src/test/java']
+            }
+            resources {
+                srcDirs = ["src/main/resources"]
+            }
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+    
+    clean << {
+        if (file('out').exists()) {
+            file('out').deleteDir()
+        }
+        if (file('build').exists()) {
+            file('build').deleteDir()
+        }
+        if (file('classes').exists()) {
+            file('classes').deleteDir()
+        }
+
+    }
+}
