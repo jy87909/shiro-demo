@@ -1,11 +1,13 @@
 package com.lxy.controller;
 
+import com.lxy.shiro.AuthRealm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,11 @@ import java.io.IOException;
 @Slf4j
 public class LoginController {
 
+    /**
+     * 登录页面
+     *
+     * @return
+     */
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public ModelAndView viewLogin() {
         ModelAndView mv = new ModelAndView();
@@ -25,6 +32,14 @@ public class LoginController {
         return mv;
     }
 
+    /**
+     * 用户登录
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @param response 响应
+     * @throws IOException
+     */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public void login(String username, String password, HttpServletResponse response) throws IOException {
         // 使用用户的登录信息创建令牌,token可以理解为用户令牌，登录的过程被抽象为Shiro验证令牌是否具有合法身份以及相关权限。
@@ -47,6 +62,22 @@ public class LoginController {
         response.sendRedirect("success");
     }
 
+    /**
+     * 用户退出登录(清除redis缓存)
+     *
+     * @return
+     */
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public String logout() {
+        //清除当前用户的redis缓存
+        log.info("===============退出当前用户,清除当前用户的信息");
+        DefaultWebSecurityManager securityManager = (DefaultWebSecurityManager) SecurityUtils.getSecurityManager();
+        AuthRealm realm = (AuthRealm) securityManager.getRealms().iterator().next();
+        realm.clearCache(SecurityUtils.getSubject().getPrincipals());
+        SecurityUtils.getSubject().logout();
+
+        return "redirect:/login";
+    }
 
     @RequiresRoles("admin")
     @RequiresPermissions("user:create")
@@ -56,4 +87,5 @@ public class LoginController {
         mv.setViewName("views/success");
         return mv;
     }
+
 }
