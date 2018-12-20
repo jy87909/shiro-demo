@@ -1,31 +1,38 @@
 package com.lxy.controller;
 
+import com.lxy.entity.User;
+import com.lxy.mapper.UserMapper;
 import com.lxy.shiro.AuthRealm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.sound.midi.Track;
 import java.io.IOException;
 
 @Controller
 @Slf4j
 public class LoginController {
+    @Autowired
+    private UserMapper userMapper;
 
     /**
-     * 登录页面
+     * 默认登录页面
      *
      * @return
      */
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView viewLogin() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("views/login");
@@ -46,7 +53,6 @@ public class LoginController {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         // 获取Subject单例对象
         Subject subject = SecurityUtils.getSubject();
-
         try {
             //用户登录
             log.info("对用户[" + username + "]进行登录验证..验证开始");
@@ -85,6 +91,13 @@ public class LoginController {
     public ModelAndView success() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("views/success");
+        return mv;
+    }
+
+    @RequestMapping(value = "error", method = RequestMethod.GET)
+    public ModelAndView error() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("views/error");
         return mv;
     }
 
