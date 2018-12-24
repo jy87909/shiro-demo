@@ -12,20 +12,20 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 public class HomeController {
 
-//    @RequestMapping(value = "/", method = RequestMethod.GET)
-//    public ModelAndView index(ModelAndView mv) {
-//        if (mv == null) {
-//            new ModelAndView();
-//        }
-//        //获取shiro中的session
-//        Session session = SecurityUtils.getSubject().getSession();
-//        if (session.getAttribute("MEMBER_USER_KEY") == null) {
-//            log.info("用户没有登录,即将跳转登录页面");
-//            mv.setViewName("views/login");
-//        } else {
-//            mv.setViewName("views/success");
-//        }
-//
-//        return mv;
-//    }
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView index(ModelAndView mv) {
+        if (mv == null) {
+            new ModelAndView();
+        }
+        //获取shiro中的session
+        Session session = SecurityUtils.getSubject().getSession();
+        if (session.getAttribute("MEMBER_USER_KEY") == null) {
+            log.info("用户没有登录,即将跳转登录页面");
+            mv.setViewName("views/login");
+        } else {
+            mv.setViewName("views/success");
+        }
+
+        return mv;
+    }
 }
