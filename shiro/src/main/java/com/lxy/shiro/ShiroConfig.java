@@ -28,14 +28,14 @@ public class ShiroConfig {
 
     //获取application.properties参数,此处不能加static关键字
     @Value("${spring.redis.port}")
-    private  String port;
+    private String port;
 
 
     @Value("${spring.redis.host}")
-    private  String host;
+    private String host;
 
     @Value("${spring.redis.redisPassword}")
-    private  String redisPassword;
+    private String redisPassword;
 
     // 下面两个方法对 注解权限起作用有很大的关系，请把这两个方法，放在配置的最上面,
 
@@ -47,7 +47,7 @@ public class ShiroConfig {
     @Bean(name = "lifecycleBeanPostProcessor")
     public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         log.info("===============(1)Shiro生命周期周期处理器设置");
-         return new LifecycleBeanPostProcessor();
+        return new LifecycleBeanPostProcessor();
     }
 
     /**
@@ -61,7 +61,6 @@ public class ShiroConfig {
     @Bean
     @DependsOn("lifecycleBeanPostProcessor")
     public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
-        log.info("===============(2.1)开启Shiro注解");
         DefaultAdvisorAutoProxyCreator autoProxyCreator = new DefaultAdvisorAutoProxyCreator();
         autoProxyCreator.setProxyTargetClass(true);
         return autoProxyCreator;
@@ -69,7 +68,7 @@ public class ShiroConfig {
 
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-        log.info("===============(2.2)开启Shiro注解");
+        log.info("===============(6)开启Shiro注解");
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
@@ -99,7 +98,7 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 
         //开放登录接口
-        filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/login", "anon");
 
         // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
@@ -114,7 +113,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/**", "authc");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        log.info("===============(6)Shiro拦截器工厂类注入成功");
+        log.info("===============(5)Shiro拦截器工厂类注入成功");
 
         return shiroFilterFactoryBean;
     }
@@ -127,13 +126,13 @@ public class ShiroConfig {
      */
     @Bean
     public SecurityManager securityManager() {
-        log.info("===============(3)注入securityManager开始");
+        log.info("===============(2)注入securityManager开始");
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //设置realm
         securityManager.setRealm(realm());
 
-        //自定义缓存实现,使用redis
-        securityManager.setCacheManager(cacheManager());
+        //自定义缓存实现,使用redis(暂时不知道有什么用)
+        //securityManager.setCacheManager(redisCacheManager());
 
         return securityManager;
     }
@@ -141,8 +140,7 @@ public class ShiroConfig {
     /**
      * 自定义身份认证 realm
      * 需要将自定义的密码匹配器注入到Realm中
-     * 必须写这个类,并加上@Bean注解,目的是注入CustomRealm
-     * 否则会影响CustomRealm类中其他类的依赖注入
+     * realm就是一个安全数据源。可以将其看作为数据库的另一层封装，连接了应用和db
      *
      * @return
      */
@@ -152,7 +150,7 @@ public class ShiroConfig {
     public Realm realm() {
         AuthRealm authRealm = new AuthRealm();
         //根据情况使用缓存器
-        authRealm.setCacheManager(cacheManager());
+        authRealm.setCacheManager(redisCacheManager());
         return authRealm;
     }
 
@@ -162,8 +160,8 @@ public class ShiroConfig {
      *
      * @return
      */
-    public RedisCacheManager cacheManager() {
-        log.info("===============(4)创建缓存管理器RedisCacheManager");
+    public RedisCacheManager redisCacheManager() {
+        log.info("===============(3)创建缓存管理器RedisCacheManager");
 
         RedisCacheManager redisCacheManager = new RedisCacheManager();
         redisCacheManager.setRedisManager(redisManager());
@@ -182,7 +180,7 @@ public class ShiroConfig {
      */
     @Bean
     public RedisManager redisManager() {
-        log.info("===============(5)创建RedisManager,连接Redis..URL= " + host + ":" + port);
+        log.info("===============(4)创建RedisManager,连接Redis..URL= " + host + ":" + port);
         RedisManager redisManager = new RedisManager();
         redisManager.setHost(host + ":" + port);//老版本是分别setHost和setPort,新版本只需要setHost就可以了
         if (!StringUtils.isEmpty(redisPassword)) {
