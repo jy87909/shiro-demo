@@ -37,7 +37,7 @@ public class AuthRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        log.info("===============进入用户认证");
+        log.info("===============Shiro用户认证开始");
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
         //获取登录用户名
         String username = String.valueOf(usernamePasswordToken.getUsername());
@@ -52,6 +52,8 @@ public class AuthRealm extends AuthorizingRealm {
                         user.getPassword(), //密码
                         getName() //realm name
                 );
+                log.info("===============Shiro用户认证成功");
+
             }
         }
         return authenticationInfo;
@@ -65,7 +67,7 @@ public class AuthRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        log.info("===============进入要权限认证");
+        log.info("===============Shiro权限认证开始");
         //获取身份认证时设置的用户名(SimpleAuthenticationInfo)
         User user = (User) principals.getPrimaryPrincipal();
         String username = user.getUsername();
@@ -78,6 +80,7 @@ public class AuthRealm extends AuthorizingRealm {
             SimpleAuthorizationInfo authenticationInfo = new SimpleAuthorizationInfo();
             authenticationInfo.setRoles(roleName);
             authenticationInfo.setStringPermissions(permName);
+            log.info("===============Shiro权限认证成功");
             return authenticationInfo;
         }
         return null;

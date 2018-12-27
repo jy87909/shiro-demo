@@ -11,6 +11,7 @@ dependencies {
 
     compile project(":service")
     compile project(":entity")
+    compile project(":common")
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
@@ -25,6 +26,15 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.0.6.RELEASE'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.0.RELEASE'
+
+    // https://mvnrepository.com/artifact/net.mingsoft/shiro-freemarker-tags
+    compile group: 'net.mingsoft', name: 'shiro-freemarker-tags', version: '1.0.0'
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '9.0.13'
 
 
 }

@@ -30,7 +30,6 @@ public class ShiroConfig {
     @Value("${spring.redis.port}")
     private String port;
 
-
     @Value("${spring.redis.host}")
     private String host;
 
@@ -68,7 +67,7 @@ public class ShiroConfig {
 
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-        log.info("===============(6)开启Shiro注解");
+        log.info("===============(6)开启Shiro后台注解");
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
@@ -132,7 +131,7 @@ public class ShiroConfig {
         securityManager.setRealm(realm());
 
         //自定义缓存实现,使用redis(暂时不知道有什么用)
-        //securityManager.setCacheManager(redisCacheManager());
+        securityManager.setCacheManager(redisCacheManager());
 
         return securityManager;
     }
@@ -153,6 +152,7 @@ public class ShiroConfig {
         authRealm.setCacheManager(redisCacheManager());
         return authRealm;
     }
+
 
     /**
      * cacheManager 缓存 redis实现
