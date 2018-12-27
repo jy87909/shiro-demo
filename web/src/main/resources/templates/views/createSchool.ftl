@@ -3,7 +3,7 @@
     <title></title>
 </head>
 <body>
-    用户名密码错误,请从新登录 <a href="/"></a>
+创建学校页面
 
 </body>
 </html>
