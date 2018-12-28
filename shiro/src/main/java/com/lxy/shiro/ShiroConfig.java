@@ -1,6 +1,5 @@
 package com.lxy.shiro;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
@@ -24,8 +23,7 @@ import java.util.Map;
 @Configuration //@Configuration标注在类上，相当于把该类作为spring的xml配置文件中的<beans>，作用为：配置spring容器(应用上下文)
 @Slf4j
 public class ShiroConfig {
-
-
+    
     //获取application.properties参数,此处不能加static关键字
     @Value("${spring.redis.port}")
     private String port;

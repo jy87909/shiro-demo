@@ -3,7 +3,7 @@
     <title></title>
 </head>
 <body>
-    <@shiro.hasAnyRoles name="ROLE_ADMIN,ROLE_SHCOOLADMIN">
+    <@shiro.hasAnyRoles name="ROLE_ADMIN,ROLE_SCHOOLADMIN">
         您好,欢迎
     </@shiro.hasAnyRoles>
     <@shiro.hasRole name="ROLE_ADMIN">

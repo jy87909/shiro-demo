@@ -5,6 +5,5 @@ include 'shiro'
 include 'common'
 include 'entity'
 include 'service'
-include 'exception'
 include 'dao'
 

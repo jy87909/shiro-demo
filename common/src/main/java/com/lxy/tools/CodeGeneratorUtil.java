@@ -24,7 +24,6 @@ public class CodeGeneratorUtil {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
 
-
         // String projectPath = "D:/project"; //windows下生成文件的位置
         String projectPath = "/Users/lixinyu/myspace/project"; //mac下生成文件的位置
         gc.setOutputDir(projectPath + "/src/main/java");

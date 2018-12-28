@@ -22,12 +22,8 @@ dependencies {
     compile project(":entity")
     compile project(":dao")
     compile project(":shiro")
-    compile project(":exception")
 
     implementation('org.springframework.boot:spring-boot-starter-web')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
-
-    // https://mvnrepository.com/artifact/org.springframework/spring-web
-//    compile group: 'org.springframework', name: 'spring-web', version: '3.0.4.RELEASE'
-
+    
 }

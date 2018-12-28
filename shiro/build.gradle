@@ -18,10 +18,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
 
-    // https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring
+    // https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring shiro引入
     compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
 
-    // https://mvnrepository.com/artifact/org.crazycake/shiro-redis
+    // https://mvnrepository.com/artifact/org.crazycake/shiro-redis,shiro+redis缓存插件 
     compile group: 'org.crazycake', name: 'shiro-redis', version: '3.2.1'
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis

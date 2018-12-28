@@ -18,7 +18,6 @@ import java.util.Set;
 @Slf4j
 public class AuthRealm extends AuthorizingRealm {
 
-
     @Autowired
     private UserMapper userMapper;
 
@@ -53,7 +52,6 @@ public class AuthRealm extends AuthorizingRealm {
                         getName() //realm name
                 );
                 log.info("===============Shiro用户认证成功");
-
             }
         }
         return authenticationInfo;
@@ -95,6 +93,4 @@ public class AuthRealm extends AuthorizingRealm {
     public void clearCache(PrincipalCollection principals) {
         super.clearCache(principals);
     }
-
-
 }
