@@ -97,7 +97,7 @@ public class ShiroConfig {
         //开放登录接口
         filterChainDefinitionMap.put("/login", "anon");
 
-        // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
+        // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了,也就是说自己不用写logout方法了
         filterChainDefinitionMap.put("/logout", "logout");
 
         //游客，开发权限
